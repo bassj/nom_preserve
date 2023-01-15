@@ -124,3 +124,16 @@ where
         Ok(o) => Ok(o),
     }
 }
+
+/// Discards the error stack returned with the output of the parser.
+pub fn discard<I, O, E: ParseError<I> + std::fmt::Debug, F>(
+    mut parser: F,
+) -> impl FnMut(I) -> IResult<I, O, E>
+where
+    F: Parser<I, (O, Vec<PreservedError<I, E>>), E>,
+{
+    move |input: I| match parser.parse(input) {
+        Err(err) => Err(err),
+        Ok((input, (output, _error_stack))) => Ok((input, output)),
+    }
+}
