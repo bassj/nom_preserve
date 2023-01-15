@@ -2,6 +2,10 @@
 name = "nom_preserve"
 version = "0.1.0"
 edition = "2021"
+authors = ["Jack Bass"]
+repository = "https://github.com/bassj/nom_preserve"
+license = "MIT"
+
 
 [dependencies]
 nom = "7.1.1"
